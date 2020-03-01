@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchwimmbadModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SchwimmbadModelStoreContainer">
+    <EntitySet Name="SchwimmbahnSet" EntityType="SchwimmbadModel.Store.SchwimmbahnSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BuchungSet" EntityType="SchwimmbadModel.Store.BuchungSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GastSet" EntityType="SchwimmbadModel.Store.GastSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SchwimmbahnBuchung" EntityType="SchwimmbadModel.Store.SchwimmbahnBuchung" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="GastBuchung" Association="SchwimmbadModel.Store.GastBuchung">
+      <End Role="Gast" EntitySet="GastSet" />
+      <End Role="Buchung" EntitySet="BuchungSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchwimmbahnBuchung_Schwimmbahn" Association="SchwimmbadModel.Store.FK_SchwimmbahnBuchung_Schwimmbahn">
+      <End Role="Schwimmbahn" EntitySet="SchwimmbahnSet" />
+      <End Role="SchwimmbahnBuchung" EntitySet="SchwimmbahnBuchung" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchwimmbahnBuchung_Buchung" Association="SchwimmbadModel.Store.FK_SchwimmbahnBuchung_Buchung">
+      <End Role="Buchung" EntitySet="BuchungSet" />
+      <End Role="SchwimmbahnBuchung" EntitySet="SchwimmbahnBuchung" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SchwimmbahnSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Schwimmbahnnummer" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BuchungSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Wochentag" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Beginn" Type="time" Nullable="false" />
+    <Property Name="Ende" Type="time" Nullable="false" />
+    <Property Name="Starttermin" Type="datetime" Nullable="false" />
+    <Property Name="Endtermin" Type="datetime" Nullable="false" />
+    <Property Name="GastId" Type="int" Nullable="true" />
+    <Property Name="Schwimmbahnanzahl" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GastSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Verein" Type="bit" Nullable="false" />
+    <Property Name="Mitarbeiter" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SchwimmbahnBuchung">
+    <Key>
+      <PropertyRef Name="belegt_Id" />
+      <PropertyRef Name="WirdGebucht_Id" />
+    </Key>
+    <Property Name="belegt_Id" Type="int" Nullable="false" />
+    <Property Name="WirdGebucht_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="GastBuchung">
+    <End Role="Gast" Type="SchwimmbadModel.Store.GastSet" Multiplicity="0..1" />
+    <End Role="Buchung" Type="SchwimmbadModel.Store.BuchungSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gast">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Buchung">
+        <PropertyRef Name="GastId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchwimmbahnBuchung_Schwimmbahn">
+    <End Role="Schwimmbahn" Type="SchwimmbadModel.Store.SchwimmbahnSet" Multiplicity="1" />
+    <End Role="SchwimmbahnBuchung" Type="SchwimmbadModel.Store.SchwimmbahnBuchung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schwimmbahn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SchwimmbahnBuchung">
+        <PropertyRef Name="belegt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchwimmbahnBuchung_Buchung">
+    <End Role="SchwimmbahnBuchung" Type="SchwimmbadModel.Store.SchwimmbahnBuchung" Multiplicity="*" />
+    <End Role="Buchung" Type="SchwimmbadModel.Store.BuchungSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Buchung">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SchwimmbahnBuchung">
+        <PropertyRef Name="WirdGebucht_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="SchwimmbadModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="SchwimmbadModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="SchwimmbahnSet" EntityType="SchwimmbadModel.Schwimmbahn" />
+    <EntitySet Name="BuchungSet" EntityType="SchwimmbadModel.Buchung" />
+    <EntitySet Name="GastSet" EntityType="SchwimmbadModel.Gast" />
+    <AssociationSet Name="GastBuchung" Association="SchwimmbadModel.GastBuchung">
+      <End Role="Gast" EntitySet="GastSet" />
+      <End Role="Buchung" EntitySet="BuchungSet" />
+    </AssociationSet>
+    <AssociationSet Name="SchwimmbahnBuchung" Association="SchwimmbadModel.SchwimmbahnBuchung">
+      <End Role="Schwimmbahn" EntitySet="SchwimmbahnSet" />
+      <End Role="Buchung" EntitySet="BuchungSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Schwimmbahn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Schwimmbahnnummer" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="WirdGebucht" Relationship="SchwimmbadModel.SchwimmbahnBuchung" FromRole="Schwimmbahn" ToRole="Buchung" />
+  </EntityType>
+  <EntityType Name="Buchung">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wochentag" Type="String" Nullable="false" />
+    <Property Name="Beginn" Type="Time" Nullable="false" />
+    <Property Name="Ende" Type="Time" Nullable="false" />
+    <Property Name="Starttermin" Type="DateTime" Nullable="false" />
+    <Property Name="Endtermin" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="GehörtZu" Relationship="SchwimmbadModel.GastBuchung" FromRole="Buchung" ToRole="Gast" />
+    <Property Name="GastId" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="belegt" Relationship="SchwimmbadModel.SchwimmbahnBuchung" FromRole="Buchung" ToRole="Schwimmbahn" />
+    <Property Name="Schwimmbahnanzahl" Type="Int16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gast">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Verein" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tätigt" Relationship="SchwimmbadModel.GastBuchung" FromRole="Gast" ToRole="Buchung" />
+    <Property Name="Mitarbeiter" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="GastBuchung">
+    <End Type="SchwimmbadModel.Gast" Role="Gast" Multiplicity="0..1" />
+    <End Type="SchwimmbadModel.Buchung" Role="Buchung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gast">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Buchung">
+        <PropertyRef Name="GastId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SchwimmbahnBuchung">
+    <End Type="SchwimmbadModel.Schwimmbahn" Role="Schwimmbahn" Multiplicity="*" />
+    <End Type="SchwimmbadModel.Buchung" Role="Buchung" Multiplicity="*" />
+  </Association>
+</Schema>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SchwimmbadModelStoreContainer" CdmEntityContainer="SchwimmbadModelContainer">
+    <EntitySetMapping Name="SchwimmbahnSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SchwimmbadModel.Schwimmbahn)">
+        <MappingFragment StoreEntitySet="SchwimmbahnSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Schwimmbahnnummer" ColumnName="Schwimmbahnnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuchungSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SchwimmbadModel.Buchung)">
+        <MappingFragment StoreEntitySet="BuchungSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Wochentag" ColumnName="Wochentag" />
+          <ScalarProperty Name="Beginn" ColumnName="Beginn" />
+          <ScalarProperty Name="Ende" ColumnName="Ende" />
+          <ScalarProperty Name="Starttermin" ColumnName="Starttermin" />
+          <ScalarProperty Name="Endtermin" ColumnName="Endtermin" />
+          <ScalarProperty Name="GastId" ColumnName="GastId" />
+          <ScalarProperty Name="Schwimmbahnanzahl" ColumnName="Schwimmbahnanzahl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GastSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SchwimmbadModel.Gast)">
+        <MappingFragment StoreEntitySet="GastSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Verein" ColumnName="Verein" />
+          <ScalarProperty Name="Mitarbeiter" ColumnName="Mitarbeiter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="SchwimmbahnBuchung" TypeName="SchwimmbadModel.SchwimmbahnBuchung" StoreEntitySet="SchwimmbahnBuchung">
+      <EndProperty Name="Schwimmbahn">
+        <ScalarProperty Name="Id" ColumnName="belegt_Id" />
+      </EndProperty>
+      <EndProperty Name="Buchung">
+        <ScalarProperty Name="Id" ColumnName="WirdGebucht_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
