@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SchwimmbadModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SchwimmbadModelStoreContainer">
+    <EntitySet Name="SchwimmbahnSet" EntityType="SchwimmbadModel.Store.SchwimmbahnSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BuchungSet" EntityType="SchwimmbadModel.Store.BuchungSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GastSet" EntityType="SchwimmbadModel.Store.GastSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SchwimmbahnBuchung" EntityType="SchwimmbadModel.Store.SchwimmbahnBuchung" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="GastBuchung" Association="SchwimmbadModel.Store.GastBuchung">
+      <End Role="Gast" EntitySet="GastSet" />
+      <End Role="Buchung" EntitySet="BuchungSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchwimmbahnBuchung_Schwimmbahn" Association="SchwimmbadModel.Store.FK_SchwimmbahnBuchung_Schwimmbahn">
+      <End Role="Schwimmbahn" EntitySet="SchwimmbahnSet" />
+      <End Role="SchwimmbahnBuchung" EntitySet="SchwimmbahnBuchung" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchwimmbahnBuchung_Buchung" Association="SchwimmbadModel.Store.FK_SchwimmbahnBuchung_Buchung">
+      <End Role="Buchung" EntitySet="BuchungSet" />
+      <End Role="SchwimmbahnBuchung" EntitySet="SchwimmbahnBuchung" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SchwimmbahnSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Schwimmbahnnummer" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BuchungSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Wochentag" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Beginn" Type="time" Nullable="false" />
+    <Property Name="Ende" Type="time" Nullable="false" />
+    <Property Name="Starttermin" Type="datetime" Nullable="false" />
+    <Property Name="Endtermin" Type="datetime" Nullable="false" />
+    <Property Name="GastId" Type="int" Nullable="true" />
+    <Property Name="Schwimmbahnanzahl" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GastSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Verein" Type="bit" Nullable="false" />
+    <Property Name="Mitarbeiter" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SchwimmbahnBuchung">
+    <Key>
+      <PropertyRef Name="belegt_Id" />
+      <PropertyRef Name="WirdGebucht_Id" />
+    </Key>
+    <Property Name="belegt_Id" Type="int" Nullable="false" />
+    <Property Name="WirdGebucht_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="GastBuchung">
+    <End Role="Gast" Type="SchwimmbadModel.Store.GastSet" Multiplicity="0..1" />
+    <End Role="Buchung" Type="SchwimmbadModel.Store.BuchungSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gast">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Buchung">
+        <PropertyRef Name="GastId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchwimmbahnBuchung_Schwimmbahn">
+    <End Role="Schwimmbahn" Type="SchwimmbadModel.Store.SchwimmbahnSet" Multiplicity="1" />
+    <End Role="SchwimmbahnBuchung" Type="SchwimmbadModel.Store.SchwimmbahnBuchung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schwimmbahn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SchwimmbahnBuchung">
+        <PropertyRef Name="belegt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchwimmbahnBuchung_Buchung">
+    <End Role="SchwimmbahnBuchung" Type="SchwimmbadModel.Store.SchwimmbahnBuchung" Multiplicity="*" />
+    <End Role="Buchung" Type="SchwimmbadModel.Store.BuchungSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Buchung">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SchwimmbahnBuchung">
+        <PropertyRef Name="WirdGebucht_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="SchwimmbadModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="SchwimmbadModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SchwimmbahnSet" EntityType="SchwimmbadModel.Schwimmbahn" />
+          <EntitySet Name="BuchungSet" EntityType="SchwimmbadModel.Buchung" />
+          <EntitySet Name="GastSet" EntityType="SchwimmbadModel.Gast" />
+          <AssociationSet Name="GastBuchung" Association="SchwimmbadModel.GastBuchung">
+            <End Role="Gast" EntitySet="GastSet" />
+            <End Role="Buchung" EntitySet="BuchungSet" />
+          </AssociationSet>
+          <AssociationSet Name="SchwimmbahnBuchung" Association="SchwimmbadModel.SchwimmbahnBuchung">
+            <End Role="Schwimmbahn" EntitySet="SchwimmbahnSet" />
+            <End Role="Buchung" EntitySet="BuchungSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Schwimmbahn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Schwimmbahnnummer" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="WirdGebucht" Relationship="SchwimmbadModel.SchwimmbahnBuchung" FromRole="Schwimmbahn" ToRole="Buchung" />
+        </EntityType>
+        <EntityType Name="Buchung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Wochentag" Type="String" Nullable="false" />
+          <Property Name="Beginn" Type="Time" Nullable="false" />
+          <Property Name="Ende" Type="Time" Nullable="false" />
+          <Property Name="Starttermin" Type="DateTime" Nullable="false" />
+          <Property Name="Endtermin" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="GehörtZu" Relationship="SchwimmbadModel.GastBuchung" FromRole="Buchung" ToRole="Gast" />
+          <Property Name="GastId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="belegt" Relationship="SchwimmbadModel.SchwimmbahnBuchung" FromRole="Buchung" ToRole="Schwimmbahn" />
+          <Property Name="Schwimmbahnanzahl" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gast">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Verein" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tätigt" Relationship="SchwimmbadModel.GastBuchung" FromRole="Gast" ToRole="Buchung" />
+          <Property Name="Mitarbeiter" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="GastBuchung">
+          <End Type="SchwimmbadModel.Gast" Role="Gast" Multiplicity="0..1" />
+          <End Type="SchwimmbadModel.Buchung" Role="Buchung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gast">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Buchung">
+              <PropertyRef Name="GastId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SchwimmbahnBuchung">
+          <End Type="SchwimmbadModel.Schwimmbahn" Role="Schwimmbahn" Multiplicity="*" />
+          <End Type="SchwimmbadModel.Buchung" Role="Buchung" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SchwimmbadModelStoreContainer" CdmEntityContainer="SchwimmbadModelContainer">
+    <EntitySetMapping Name="SchwimmbahnSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SchwimmbadModel.Schwimmbahn)">
+        <MappingFragment StoreEntitySet="SchwimmbahnSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Schwimmbahnnummer" ColumnName="Schwimmbahnnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuchungSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SchwimmbadModel.Buchung)">
+        <MappingFragment StoreEntitySet="BuchungSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Wochentag" ColumnName="Wochentag" />
+          <ScalarProperty Name="Beginn" ColumnName="Beginn" />
+          <ScalarProperty Name="Ende" ColumnName="Ende" />
+          <ScalarProperty Name="Starttermin" ColumnName="Starttermin" />
+          <ScalarProperty Name="Endtermin" ColumnName="Endtermin" />
+          <ScalarProperty Name="GastId" ColumnName="GastId" />
+          <ScalarProperty Name="Schwimmbahnanzahl" ColumnName="Schwimmbahnanzahl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GastSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SchwimmbadModel.Gast)">
+        <MappingFragment StoreEntitySet="GastSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Verein" ColumnName="Verein" />
+          <ScalarProperty Name="Mitarbeiter" ColumnName="Mitarbeiter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="SchwimmbahnBuchung" TypeName="SchwimmbadModel.SchwimmbahnBuchung" StoreEntitySet="SchwimmbahnBuchung">
+      <EndProperty Name="Schwimmbahn">
+        <ScalarProperty Name="Id" ColumnName="belegt_Id" />
+      </EndProperty>
+      <EndProperty Name="Buchung">
+        <ScalarProperty Name="Id" ColumnName="WirdGebucht_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
