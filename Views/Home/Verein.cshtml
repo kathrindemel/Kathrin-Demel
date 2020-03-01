@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h2>SCHWIMMBADBUCHUNGSSYSTEM</h2>
+    <p class="lead">Willkommen beim städtischen Schwimmbadbuchungssystem.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Schwimmbadbelegung</h3>
+        <p>Hier können Sie die aktuell belegten Schwimmbahnen einsehen.</p>
+        <p>@Html.ActionLink("Schwimmbadbelegung anzeigen", "AnsichtVerein", "Orders")</p>
+    </div>
+
+    <div class="col-md-4">
+        <h3>Schwimmbahnübersicht</h3>
+        <p>Hier können Sie sehen, wie viele Schwimmbahnen im Schwimmbad vorhanden sind.</p>
+        <p>@Html.ActionLink("Schwimmbahnen anzeigen", "AnsichtVerein", "Schwimmbahns")</p>
+    </div>
+
+        <div class="col-md-4">
+        <h3>Schwimmbahnen reservieren</h3>
+        <p>Zur Reservierung einer Schwimmbahn füllen Sie bitte folgendes Anfrageformular aus.</p>
+        <p>@Html.ActionLink("Buchungsanfrage anlegen", "CreateVerein", "Buchungs")</p>
+        <h3>Buchungsanfragen einsehen / bearbeiten</h3>
+        <p>Hier können Sie die Buchungsanfragen einsehen und bei Bedarf bearbeiten.</p>
+        <p>@Html.ActionLink("Zur Übersicht: Buchungsanfragen", "IndexVerein", "Buchungs")</p>
+    </div>
+
+</div>

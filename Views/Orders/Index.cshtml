@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SchwimmbadWebApplication.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Schwimmbadbelegung</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.GehörtZu.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Schwimmbahn.Schwimmbahnnummer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.Wochentag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.Beginn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.Ende)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Buchung.GehörtZu.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Schwimmbahn.Schwimmbahnnummer)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Buchung.Wochentag)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Buchung.Beginn)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Buchung.Ende)
+            </th>
+            <td>
+                @Html.ActionLink("Löschen", "Delete", new { buchungId = item.Buchung.Id, schwimmbahnId = item.Schwimmbahn.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Zurück zur Mitarbeiteransicht", "Mitarbeiter", "Home")
+</div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SchwimmbadLib.Gast>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Login-Bereich</h2>
+
+<p>
+    @Html.ActionLink("New Login", "CreateHome", "Gasts")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Verein)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mitarbeiter)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Verein)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mitarbeiter)
+        </td>
+        <td>
+            @Html.ActionLink("Auswählen", "Select", new { id=item.Id })
+        </td>
+    </tr>
+}
+</table>
+<div>
+    @Html.ActionLink("Zurück zur Startseite", "Index", "Home")
+</div>

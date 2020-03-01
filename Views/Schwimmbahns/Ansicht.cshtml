@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SchwimmbadLib.Schwimmbahn>
+
+@{
+    ViewBag.Title = "Ansicht";
+}
+
+<h2>Übersicht über alle vorhandenen Schwimmbahnen</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Schwimmbahnnummer)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Schwimmbahnnummer)
+        </td>
+    </tr>
+
+}
+
+</table>

@@ -1,0 +1,42 @@
+﻿@model SchwimmbadLib.Gast
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Registrierte Vereine und Mitarbeiter.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Verein)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Verein)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mitarbeiter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mitarbeiter)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Zurück zur Übersicht", "Index")
+</p>

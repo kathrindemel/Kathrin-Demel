@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h2>SCHWIMMBADBUCHUNGSSYSTEM</h2>
+    <p class="lead">Willkommen beim städtischen Schwimmbadbuchungssystem.</p>
+    <p class="lead">Interne Systemansicht.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Vereine / Mitarbeiter</h3>
+        <p>Ansicht aller registierten Vereine und Mitarbeiter. Hier können auch angelegte Vereine und Mitarbeiter aus dem System gelöscht werden.</p>
+        <p>@Html.ActionLink("Vereine / Mitarbeiter anzeigen", "Index", "Gasts")</p>
+        <p>Hier können neue Vereine bzw. Mitarbeiter vom Personal selbst angelegt werden.</p>
+        <p>@Html.ActionLink("Vereine / Mitarbeiter anlegen", "Create", "Gasts")</p>
+        <h3>Schwimmbahnen</h3>
+        <p>Hier können die Schwimmbahnen angelegt werden. Hier ist ebenfalls die Gesamtübersicht der Schwimmbahnen zu finden und kann diese bearbeiten.</p>
+        <p>@Html.ActionLink("Schwimmbahnen anlegen", "Create", "Schwimmbahns")</p>
+    </div>
+
+    <div class="col-md-4">
+        <h3>Buchungsanfrage durch Mitarbeiter</h3>
+        <p>Hierüber kann die Buchungsanfrage manuell vom Personal angelegt werden.</p>
+        <p>@Html.ActionLink("Buchungsanfrage anlegen", "CreateMitarbeiter", "Buchungs")</p>
+        <h3>Buchungsanfragen einsehen / bearbeiten</h3>
+        <p>Hier sind alle Buchungsanfragen von allen Vereinen abrufbar und können bei Bedarf bearbeitet werden.</p>
+        <p>@Html.ActionLink("Zur Übersicht: Buchungsanfragen", "IndexMitarbeiter", "Buchungs")</p>
+    </div>
+
+    <div class="col-md-4">
+        <h3>Schwimmbadbelegung</h3>
+        <p>Hier können kann die aktuelle Schwimmbadbelegung eingesehen werden.</p>
+        <p>@Html.ActionLink("Schwimmbadbelegung anzeigen", "AnsichtMitarbeiter", "Orders")</p>
+        <h3>Buchungen durchführen</h3>
+        <p>Hier können den Buchungsanfragen die Schwimmbahnen zu geteilt werden.</p>
+        <p>@Html.ActionLink("Buchungsanfragen ausführen", "Index", "Buchungs")</p>
+        <h3>Buchungen löschen</h3>
+        <p>Hier können getätigte Buchungen gelöscht werden.</p>
+        <p>@Html.ActionLink("Buchungen löschen", "Index", "Orders")</p>
+    </div>
+</div>

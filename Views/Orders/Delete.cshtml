@@ -1,0 +1,39 @@
+﻿@model SchwimmbadWebApplication.Models.Order
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Löschen von getätigten Buchungen</h2>
+
+<div>
+    <h4>Hier können Sie hinterlegte Buchungen löschen. Damit wird die Schwimmbahn nicht mehr für den jeweiligen Verein reserviert.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Buchung.GehörtZu.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Buchung.GehörtZu.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Schwimmbahn.Schwimmbahnnummer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schwimmbahn.Schwimmbahnnummer)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Löschen" class="btn btn-default" /> |
+            @Html.ActionLink("Zurück zur Übersicht", "Index")
+        </div>
+    }
+</div>

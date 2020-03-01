@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SchwimmbadWebApplication.Models.Order>
+
+@{
+    ViewBag.Title = "AnsichtMitarbeiter";
+}
+
+<h2>Schwimmbadbelegung</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.Wochentag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.Beginn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.Ende)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Schwimmbahn.Schwimmbahnnummer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buchung.GehörtZu.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+         <th>
+            @Html.DisplayFor(modelItem => item.Buchung.Wochentag)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.Buchung.Beginn)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.Buchung.Ende)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Schwimmbahn.Schwimmbahnnummer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Buchung.GehörtZu.Name)
+        </td>        
+    </tr>
+}
+</table>
+<div>
+    @Html.ActionLink("Zurück zur Mitarbeiteransicht", "Mitarbeiter", "Home")
+</div>

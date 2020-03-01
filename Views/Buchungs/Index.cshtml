@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SchwimmbadLib.Buchung>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Übersicht Buchungsanfragen</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Wochentag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beginn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ende)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Starttermin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endtermin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GehörtZu.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Schwimmbahnanzahl)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wochentag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Beginn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ende)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Starttermin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Endtermin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GehörtZu.Name)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.Schwimmbahnanzahl)
+        </td>
+        <td>
+            @Html.ActionLink("Ausführen", "Create", "Orders")
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Zurück zur Mitarbeiteransicht", "Mitarbeiter", "Home")
+</div>
+

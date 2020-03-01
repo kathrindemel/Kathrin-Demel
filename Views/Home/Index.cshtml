@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="jumbotron">
+        <h1>SCHWIMMBADBUCHUNGSSYSTEM</h1>
+        <p class="lead">
+            Willkommen beim städtischen Schwimmbadbuchungssystem.
+        </p>
+        <p class="lead">
+            Hier können Sie den aktuellen Belegungsplan einsehen und online Ihre gewünschte Schwimmbahn reservieren.
+        </p>
+</div>
+
+<div class="container">
+    <h2>Schwimmbadbelegung</h2>
+    <p>Hier können Sie die aktuelle Schwimmbadbelegung einsehen.</p>
+    <p>@Html.ActionLink("Schwimmbadbelegung anzeigen", "AnsichtHome", "Orders")</p>
+</div>
+
+
+<div class="container">
+        <h3>Um Buchungsanfragen anlegen zu können, müssen Sie sich zunächst einloggen</h3>
+        <p>
+            Bitte haben Sie Verständnis, dass Schwimmbahnen lediglich für Vereine oder vereinsähnliche Gruppen reserviert werden können.
+        </p>
+        <p>@Html.ActionLink("Login", "Index", "Login")</p>
+    </div>

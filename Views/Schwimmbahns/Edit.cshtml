@@ -1,0 +1,42 @@
+﻿@model SchwimmbadLib.Schwimmbahn
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Bearbeiten von Schwimmbahnen</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <p>Sind fälschlicherweise zu viele, zu wenige oder falsche Nummern für die Schwimmbahnen vergeben worden, können diese hier korrigiert werden.</p>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Schwimmbahnnummer, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Schwimmbahnnummer, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Schwimmbahnnummer, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Speichern" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Zurück zur Übersicht", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
